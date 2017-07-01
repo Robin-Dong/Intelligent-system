@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>智慧节能型报告厅</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}">
+	<link rel='stylesheet prefetch' href="{{ url_for('static', filename='css/font-awesome.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	    var air=0,i=0;
+	    var bellState = 0;
+	    var socket = io.connect('http://' + document.domain + ':' + location.port);
+	    socket.on('connect', function(){
+	      socket.emit('my event',{data: 'I\'m connected!'});
+	    });
+	    socket.on('temperature',function(msg){
+	      $('#temperature').text(msg.data).html();
+	    });
+	    socket.on('humidity',function(msg){
+	      $('#humidity').text(msg.data).html();
+	    });
+	    socket.on('airquality',function(msg){
+	      air = msg.data;
+	       if(air <150){
+	          i = 0;
+	       }else if(air <400){
+		  i = 1;
+	       }else if(air <600){
+	          i = 2;
+	       }else if(air <800){
+		  i = 3;
+	       }else{
+		  i = 4;
+    	       }
+		spinner();
+	    });
+	    socket.on('bellalert',function(msg){
+	      if(msg.data == 1){
+		  document.getElementById("bell").className += " hbell";
+	      }else{
+	          document.getElementById("bell").className = "bell fa fa-bell";
+	      }
+    	    });
+	</script>
+</head>
+<body>
+	<div class="title"><h1>智慧节能型报告厅电气系统综合设计</h1></div>
+	<div class="left">
+		<div class="wrapper">
+		  <div id="stage" class="gauge green">
+		    <p class="gauge__values">
+		      <span class="gauge_rating">空气清新</span>
+		    </p>
+		    <svg xmlns="http://www.w3.org/2000/svg" width="241" height="241" viewBox="0 0 241 241"><circle cx="120.5" cy="120.5" r="120.5" class="outer_ring"/><path d="M167.9 18.4C153.5 11.7 137.4 8 120.5 8c-19.7 0-38.3 5.1-54.4 14l15.3 24.7c11.7-6.2 25-9.7 39.1-9.7 11.3 0 22.1 2.3 32 6.3l15.4-24.9z" class="ring_orange"/><path d="M152.5 43.3c23.9 9.9 42.2 30.6 48.8 56l27.3-10.2C219.4 57.7 197 32 167.9 18.4l-15.4 24.9z" class="ring_purple"/><path d="M38.1 106.9c4.2-25.9 21-48.1 43.3-60.2L66.1 22C37.7 37.7 16.8 65.4 10.2 98.2l27.9 8.7z" class="ring_yellow"/><path d="M54.4 171.6C43.5 157.5 37 139.7 37 120.5c0-4.7.4-9.2 1.1-13.7l-27.8-9C8.8 105.2 8 112.7 8 120.5c0 27.2 9.6 52.1 25.7 71.6l20.7-20.5z" class="ring_green"/><path d="M207 192.4c16.2-19.5 26-44.6 26-71.9 0-10.9-1.6-21.5-4.5-31.4l-27.3 10.2c1.8 6.8 2.7 13.9 2.7 21.2 0 19.7-6.8 37.8-18.3 52.1l21.4 19.8z" class="ring_red"/><g class="type"><path class="st6" d="M63.3 204.6l2.1 1.4-2.8 11.1-2-1.4.6-2.2-3.3-2.2-1.8 1.4-2-1.3 9.2-6.8zm-3.9 5.5l2.3 1.5 1.2-4.3-3.5 2.8zM66.1 219l-1.9-1.1 5.3-9.4 1.9 1.1-5.3 9.4zM79.1 213.8c.3.3.5.7.6 1.1.1.3.1.7.1 1.1 0 .4-.1.7-.3 1.1-.2.5-.6.9-1 1.2-.4.3-1 .5-1.6.4.4.4.6.8.6 1.2s-.1 1-.4 1.7l-.3.7c-.2.4-.3.8-.4.9-.1.3 0 .5.1.7l-.1.2L74 223c0-.2.1-.4.1-.6l.3-.9.4-.9c.3-.6.4-1.1.3-1.4s-.4-.6-1-.9l-2-.9-1.8 3.8-2-.9 4.6-9.7 4.7 2.2c.7.3 1.2.6 1.5 1zm-4.9-.6l-1.2 2.6 2.2 1c.4.2.8.3 1.1.3.5 0 .8-.3 1.1-.8.3-.6.3-1.1 0-1.5-.2-.2-.4-.4-.9-.6l-2.3-1zM93 226.5c-.4.5-.8.9-1.3 1.2l.8 1.5-1.5.8-.9-1.6c-.4.1-.8.2-1.1.2-.5 0-1.1-.1-1.7-.3-1.3-.4-2.3-1.2-3-2.2-.8-1.3-.9-2.9-.3-4.7.6-1.9 1.6-3.1 3-3.8 1.1-.5 2.4-.6 3.7-.2 1.3.4 2.3 1.2 3 2.3.7 1.3.9 2.8.3 4.5-.2 1-.6 1.7-1 2.3zm-4.3.2h.5l-.7-1.3 1.5-.8.7 1.3c.3-.3.5-.5.6-.8.2-.3.4-.8.6-1.3.4-1.2.4-2.1.1-2.9-.3-.8-.9-1.3-1.8-1.6-.9-.3-1.6-.2-2.3.3s-1.2 1.3-1.6 2.5c-.4 1.4-.4 2.5.2 3.4.3.5.9.9 1.5 1.1.2 0 .4 0 .7.1zM96.8 219.5l2.3.4-1.3 6.5c-.1.7-.2 1.3-.1 1.6.2.6.7 1.1 1.6 1.2.9.2 1.5 0 1.9-.6.2-.3.4-.8.6-1.5l1.3-6.5 2.3.4-1.3 6.5c-.2 1.1-.6 2-1 2.5-.9 1-2.2 1.4-4.1 1-1.8-.4-3-1.2-3.4-2.4-.2-.7-.2-1.6 0-2.7l1.2-6.4zM110.2 221.7l2.5.2 2.8 11.1-2.4-.2-.5-2.3-4-.4-.9 2.1-2.4-.2 4.9-10.3zm-.8 6.7l2.8.2-1-4.4-1.8 4.2zM117.4 222.3h2.3l.1 8.9 5.4-.1v1.9l-7.6.1-.2-10.8zM129.2 232.7l-2.2.1-.7-10.8 2.2-.1.7 10.8zM138.1 220.8l.2 1.9-3.2.4 1.1 8.8-2.3.3-1.1-8.8-3.2.4-.2-1.9 8.7-1.1zM145 219.3l2.5-.6-2.1 7.4.9 4-2.2.5-.9-4-5.1-5.8 2.6-.6 3.2 4.1 1.1-5zM157.4 226.8l-2.1.7-3.4-10.2 2.1-.7 3.4 10.2zM155.7 216.1l2.2-.9 6.9 5.3-2.9-6.9 1.9-.8 4.2 10-2.1.9-7-5.4 3 7.1-1.9.8-4.3-10.1zM170.9 209.1c.8-.1 1.5 0 2.3.3.6.3 1.1.7 1.5 1.2.4.5.8 1 1 1.5.7 1.3 1 2.5 1 3.6 0 1.6-.8 2.7-2.2 3.5l-4.1 2.2-5.2-9.5 4.1-2.2c.6-.3 1.2-.5 1.6-.6zm-2.8 3.5l3.4 6.2 1.8-1c.9-.5 1.3-1.3 1.2-2.4-.1-.6-.3-1.3-.7-2-.5-1-1.1-1.6-1.7-2-.6-.4-1.3-.3-2.2.2l-1.8 1zM182 204l-4.7 3.2 1.3 1.9 4.3-2.9 1.1 1.6-4.3 2.9 1.6 2.3 4.9-3.4 1.1 1.6-6.8 4.6-6.1-8.9 6.5-4.4 1.1 1.5zM190.5 208.6l-2 1.7-.8-6.5-5.9-2 2.1-1.7 3.7 1.5-.7-4 2-1.7.8 6.1 6.3 2.1-2.1 1.7-3.9-1.5.5 4.3z"/></g><path d="M102.3 190.1c-31.4-8.1-54.6-36.6-54.6-70.5 0-40.2 32.6-72.8 72.8-72.8s72.8 32.6 72.8 72.8c0 33.9-23.2 62.5-54.6 70.5l-18.3 17.7-18.1-17.7z" class="spinner" transform='rotate(75 120 120)' /></svg>
+		  </div>
+		</div>
+
+		<div class="light">
+			<div class="top-light">
+				<div class="text text-light">
+					<span>灯光状态：</span>
+				</div>
+				<div class="switch">
+				   	<input type="checkbox" id="check01">
+					<label><i></i></label>
+				</div> ​
+			</div>
+			<div id="rgb" class="rgb-light">
+				<div id="colPick">
+					<p>R
+				  	<input type="range" id="colRed" value="0" max="255"></p>
+					<p>G
+					<input type="range" id="colGreen" value="0" max="255"></p>
+					<p>B
+					<input type="range" id="colBlue" value="0" max="255"></p>
+				</div>
+				<div id="model">
+					<p>
+						<input type="button" id="model01" value="模式一">
+					</p>
+					<p>
+						<input type="button" id="model02" value="模式二">
+					</p>
+					<p>
+						<input type="button" id="model03" value="模式三">
+					</p>
+					
+				</div>
+			</div>
+		</div>	
+		
+	</div>
+
+	<div class="right">
+		<div class='container'>
+		  <div class='card temp'>
+		    <div class='inner'>
+		      <div class='icon'></div>
+		      <div class='title'>
+		        <div class='text'>TEMPERATURE</div>
+		      </div>
+		      <div class='number'><span id="temperature"></span><span class="cirule">°C</span></div>
+		    </div>
+		  </div>
+		  <div class='card energy'>
+		    <div class='inner'>
+		      <div class='icon'></div>
+		      <div class='title'>
+		        <div class='text'>HUMIDITY</div>
+		      </div>
+		      <div class='number'><span id="humidity"></span><span class="percent">%</span></div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="bottom-right">
+			<div class="bell-alert">
+				<div class="text text-bell">
+					<span>防盗警报：</span>
+				</div>
+				<div class="bell-switch">
+					<div id="bell" class="bell fa fa-bell "></div>
+				</div>
+			</div>	
+			<div class="fan">
+				<div class="text text-fan">
+					<span>风扇状态：</span>
+				</div>
+				<div class="switch">
+					<input type="checkbox" id="check02">
+					<label><i></i></label>
+				</div> ​
+			</div>
+			<div class="curtain">
+				<div class="text text-curtain">
+					<span>窗帘状态：</span>
+				</div>
+				<div class="switch">
+					<input type="checkbox" id="check03">
+					<label><i></i></label>
+				</div> ​
+			</div>
+			
+			<div class="time"><p id="time"></p></div>
+		</div>
+	</div>
+	<script type="text/javascript" src="{{ url_for('static', filename='module/jquery-2.2.4.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

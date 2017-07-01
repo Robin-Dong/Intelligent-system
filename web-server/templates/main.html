@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+   <title>RPi Web Server</title>
+   <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+   <!-- Optional theme -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+   <!-- Latest compiled and minified JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   
+   <style>
+      .scale_panel{
+  font-size:12px;
+  color:#999;
+  width:200px;
+  position:absolute; 
+  line-height:18px; 
+  left:60px;
+  top:-0px;
+}
+.scale_panel .r{
+  float:right;
+}
+.scale span{
+  
+  width:8px;
+  height:16px; 
+  position:absolute; 
+  left:-2px;
+  top:-5px;
+  cursor:pointer;
+}
+.scale{ background-repeat: repeat-x; background-position: 0 100%; background-color: #E4E4E4; border-left: 1px #83BBD9 solid;  width: 200px; height: 3px; position: relative; font-size: 0px; border-radius: 3px; }
+.scale div{ background-repeat: repeat-x; background-color: #3BE3FF; width: 0px; position: absolute; height: 3px; width: 0; left: 0; bottom: 0; }
+li{
+  font-size:12px;
+  line-height:40px;
+  position:relative; 
+  height:40px; 
+  list-style:none;
+  margin: 10px 0 0 0;
+}
+   </style>
+ 
+</head>
+
+<body>
+   <h1>RPi Web Server - ESP8266 MQTT</h1>
+   {% for pin in pins %}
+   <h2>{{ pins[pin].name }}
+   {% if pins[pin].state == 'True' %}
+      is currently <strong>on</strong></h2><div class="row"><div class="col-md-2">
+      <a href="/homepage/{{pin}}/0" class="btn btn-block btn-lg btn-default" role="button">Turn off</a></div></div>
+   {% else %}
+      is currently <strong>off</strong></h2><div class="row"><div class="col-md-2">
+      <a href="/homepage/{{pin}}/1" class="btn btn-block btn-lg btn-primary" role="button">Turn on</a></div></div>
+   {% endif %}
+   {% endfor %}
+   <h3>DHT Readings (updated <span id="readingsUpdated"></span>)</h3>
+   <h3>Temperature: <span id="temperature"></span>ºC</h3>
+   <h3>Humidity: <span id="humidity"></span>%</h3>
+   <h3>Airquality: <span id="airquality"></span>%</h3>
+   <h3>People_detector: <span id="detector"></span></h3>
+   <ul>
+        <li>
+				<span>红</span>
+				<span id="title">0%</span>
+				<div class="scale_panel">
+					<span class="r">100</span>
+					<span>0</span>
+					<div class="scale" id="bar">
+						<div></div>
+						<span id="btn"></span>
+					</div>
+				</div>
+	</li>
+   </ul>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+scale=function (btn,bar,title){
+  this.btn=document.getElementById(btn);
+  this.bar=document.getElementById(bar);
+  this.title=document.getElementById(title);
+  this.step=this.bar.getElementsByTagName("DIV")[0];
+  this.init();
+};
+scale.prototype={
+  init:function (){
+    var f=this,g=document,b=window,m=Math;
+    f.btn.onmousedown=function (e){
+      var x=(e||b.event).clientX;
+      var l=this.offsetLeft;
+      var max=f.bar.offsetWidth-this.offsetWidth;
+      g.onmousemove=function (e){
+        var thisX=(e||b.event).clientX;
+        var to=m.min(max,m.max(-2,l+(thisX-x)));
+        f.btn.style.left=to+'px';
+        f.ondrag(m.round(m.max(0,to/max)*100),to);
+        b.getSelection ? b.getSelection().removeAllRanges() : g.selection.empty();
+      };
+      g.onmouseup=function(e){
+		this.onmousemove = null;
+ 		var thisX=(e||b.event).clientX;
+      		var to=m.min(max,m.max(-2,l+(thisX-x)));
+		var socket = io.connect('http://' + document.domain + ':' + location.port);
+	        socket.on('connect', function() {
+	        socket.emit('my event',  'connected');
+        	});
+                socket.emit('my event',  m.round(m.max(0,to/max)*100)*10);
+		alert(m.round(m.max(0,to/max)*100)*10);
+	};
+    };
+  },
+  ondrag:function (pos,x){
+    this.step.style.width=Math.max(0,x)+'px';
+    //console.log(this.step.style.width);
+    this.title.innerHTML=pos+'%';
+  }
+}
+new scale('btn','bar','title');
+
+   </script>
+</body>
+</html>
