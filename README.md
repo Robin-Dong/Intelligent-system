@@ -19,11 +19,17 @@ Okay,that's the simple description of our project.Hope this repository can reall
 Below are some pictures(sreenshots from my paper) of this systems.
 
 **Interface**
-![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/1.png)]
+
+![Markdown](http://i1.bvimg.com/666335/272327319ef60c7e.png)
 
 **Function Demo**
-![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/2.png)]
-![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/3.png)]
-![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/4.png)]
-![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/5.png)]
-![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/6.png)]
+
+![Markdown](http://i1.bvimg.com/666335/58af1e8553d1c2cb.png)
+
+![Markdown](http://i1.bvimg.com/666335/3ade127883750509.png)
+
+![Markdown](http://i1.bvimg.com/666335/740d50ce5f9cc04a.png)
+
+![Markdown](http://i1.bvimg.com/666335/21f2e6c6e2895291.png)
+
+![Markdown](http://i1.bvimg.com/666335/a4ee692c691b8c8b.png)
