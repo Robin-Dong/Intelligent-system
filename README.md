@@ -11,8 +11,19 @@ For hardware,We have ESP8266 wifi module with sensors and eletrical control syst
 For the codes:For ESP8266 module, we need to build connetion with pi,receive or send messages from/to pi, collect the sensors data or publish commands
 (this part we wrote on Adruino IDE,the programming languages is C/C++ );
 For web-server, we built a python web-server which uses Flask--a microframework for Python based on Werkzeug, Jinja2 and good intentions;
-For the webpage, we write it with Javascript,CSS and HTML(This is not my part-^_^-). 
-
+For the webpage, we write it with Javascript,CSS and HTML(This is not my part(-^_^-). 
 
 Okay,that's the simple description of our project.Hope this repository can really help you guys.If you have any ideas or problems,please let me know.
 
+
+Below are some pictures(sreenshots from my paper) of this systems.
+
+**Interface**
+![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/1.png)]
+
+**Function Demo**
+![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/2.png)]
+![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/3.png)]
+![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/4.png)]
+![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/5.png)]
+![image](https://github.com/Robin-Dong/Intelligent-system/tree/master/web-server/static/readme_img/6.png)]
