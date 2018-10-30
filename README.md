@@ -16,7 +16,7 @@ For the webpage, we write it with Javascript,CSS and HTML(This is not my part(-^
 Okay,that's the simple description of our project.Hope this repository can really help you guys.If you have any ideas or problems,please let me know.
 
 
-Below are some pictures(sreenshots from my paper) of this systems.
+Below are some pictures(screenshots from my paper) of this systems.
 
 **Interface**
 
