@@ -20,16 +20,16 @@ Below are some pictures(sreenshots from my paper) of this systems.
 
 **Interface**
 
-![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/1.jpg)
+![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/1.png)
 
 **Function Demo**
 
-![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/2.jpg)
+![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/2.png)
 
-![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/3.jpg)
+![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/3.png)
 
-![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/4.jpg)
+![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/4.png)
 
-![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/5.jpg)
+![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/5.png)
 
-![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/6.jpg)
+![markdown](https://raw.githubusercontent.com/Robin-Dong/Intelligent-system/master/web-server/static/readme_img/6.png)
